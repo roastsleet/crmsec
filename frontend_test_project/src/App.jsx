@@ -1,11 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/hello')
+    .then((response) => response.json())
+    .then((data) => {
+      setMessage(data.message);
+    })
+  }, []);
 
   return (
     <>
@@ -24,6 +33,9 @@ function App() {
         </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+        <p>
+          Here's message from backend: {message}
         </p>
       </div>
       <div>
